@@ -1,0 +1,59 @@
+$brand-success: #4caf50;
+$gray: #eaeaea;
+
+.custom-checkbox {
+	position: relative;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: pointer;
+	height: 25px;
+	width: 25px;
+
+	input {
+		display:none;
+	}
+
+	i{
+		position: absolute;
+		left: 0;
+		transition: .1s;
+	}
+
+	i.checked{
+		color: $brand-success;
+		opacity: 0;
+	}
+
+	i.unchecked{
+		opacity: 1;
+		color: $gray;
+	}
+
+	&.checked {
+		i.checked{
+			opacity: 1;
+
+		}
+		i.unchecked{
+			opacity: 0;
+		}
+	}
+
+	&.disabled i {
+		color: $gray;
+	}	
+
+	& > label{
+		display: flex;
+		align-items: center;
+		padding-left: 30px;
+
+		.children{
+			flex: 1 0 0;
+		}
+	}
+}

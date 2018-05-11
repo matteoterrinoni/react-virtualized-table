@@ -1,0 +1,143 @@
+$gray-lighter: #eaeaea;
+$gray-medium: #eaeaea;
+
+$rows:$gray-lighter;
+
+.virtualized-table-container{
+	overflow: auto;
+
+	.ReactVirtualized__Grid__innerScrollContainer{
+		padding-bottom: 100px;
+	}
+}
+
+.list-head{
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #eaeaea;
+	width: 100%;
+
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+	.list-head-column{
+		flex: 1;
+		font-weight: normal;
+		font-size: 9pt;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		text-transform: uppercase;
+
+		i{
+			color: $gray-medium;
+		}
+
+		&.sortable{
+			cursor: pointer;
+
+			&:hover{
+				background: $gray-lighter;
+			}
+		}
+	}
+}
+
+.virtualized-table-wrapper{
+	border: none;	
+	display: flex;
+	box-shadow: none;
+
+	.ReactVirtualized__Grid{
+		outline: none;
+	}
+
+	.actions-col{
+		text-align: right;
+	}
+
+	.list-item{
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid #eaeaea;
+		width: 100%;
+
+		.list-item-column{
+			flex: 1;
+			position: relative;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	ul, li{
+		list-style: none;
+	}
+
+	ul{
+		padding-left: 0px;
+		margin-bottom: 0;
+		overflow: hidden;
+
+		& > li > .list-item > .side-checkbox{
+			margin-left: 10px;
+		}
+	}
+
+	ul ul{
+		padding-left: 0px;
+
+		& > li > .list-item > .side-checkbox{
+			margin-left: 20px;
+		}
+	}
+
+	ul ul ul{
+		padding-left: 0px;
+
+		& > li > .list-item > .side-checkbox{
+			margin-left: 30px;
+		}
+	}
+
+	ul ul ul ul{
+		padding-left: 0px;
+
+		& > li > .list-item > .side-checkbox{
+			margin-left: 40px;
+		}
+	}
+
+	ul ul ul ul ul{
+		padding-left: 0px;
+
+		& > li > .list-item > .side-checkbox{
+			margin-left: 50px;
+		}
+	}
+
+	.virtualized-table{
+		width: 100%;
+
+		& > div{
+			width: 100% !important;
+			max-width: 100% !important;
+			& > div{
+				width: 100% !important;
+				max-width: 100% !important;
+				& > div{
+					width: 100% !important;
+					max-width: 100% !important;
+				}
+			}		
+		}
+	}
+}	
