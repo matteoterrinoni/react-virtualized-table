@@ -6,9 +6,7 @@
   "main": "dist/react-virtualized-table.umd.js",
   "module": "dist/react-virtualized-table.es5.js",
   "typings": "dist/types/react-virtualized-table.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "author": "Matteo Terrinoni <matteo.terrinoni@gmail.com>",
   "repository": {
     "type": "git",
@@ -21,10 +19,13 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build:demo": "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.demo.js -p --bail",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build:demo":
+      "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.demo.js -p --bail",
+    "build":
+      "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
-    "start:demo": "webpack-dev-server --development src/demo --config webpack.config.demo.js",
+    "start:demo":
+      "webpack-dev-server --development src/demo --config webpack.config.demo.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
@@ -38,10 +39,7 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write --no-semi --single-quote",
-      "git add"
-    ]
+    "*": ["prettier --write --no-semi --single-quote", "git add"]
   },
   "config": {
     "commitizen": {
@@ -49,7 +47,8 @@
     },
     "validate-commit-msg": {
       "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+      "helpMessage":
+        "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
     }
   },
   "jest": {
@@ -57,16 +56,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "demo",
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["demo", "/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,

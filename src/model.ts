@@ -1,9 +1,9 @@
 import { merge, deepCopy, orderBy } from './helpers'
 
-const list_row_height = 50
-const codepicker_height = 250
-const codepicker_width = 250
-const padding_left = 15
+const listRowHeight = 50
+const codepickerHeight = 250
+const codepickerWidth = 250
+const paddingLeft = 15
 
 export type Item<T> = T & {
   visible?: boolean
@@ -84,7 +84,7 @@ const sortItems = <T>(
     .forEach(s => {
       const name = givenColumn(s).name()
       _items.sort((a, b) => s.fn(a[name] || a, b[name] || b))
-      if (givenColumn(s).getSort(sorting) == desc) {
+      if (givenColumn(s).getSort(sorting) === desc) {
         _items = _items.reverse()
       }
     })
@@ -93,8 +93,8 @@ const sortItems = <T>(
 
 const sortColumn = <T>(c: Column<T>, sorting: Sort) => {
   let sort = givenColumn(c).getSort(sorting)
-  sorting[c.name] = sort == asc ? desc : asc
-  if (sort == desc) {
+  sorting[c.name] = sort === asc ? desc : asc
+  if (sort === desc) {
     delete sorting[c.name]
   }
 }
@@ -146,8 +146,8 @@ export const givenItem = <T>(i: Item<T>) => ({
   visible: () => isVisible(i),
   checked: () => isChecked(i),
   clean: () => clean(i),
-  toggleCheck: (val?) => (i.checked = val != undefined ? !val : !i.checked),
-  equal: (_i: Item<T>) => !Object.keys(_i).find(k => i[k] != _i[k])
+  toggleCheck: (val?) => (i.checked = val !== undefined ? !val : !i.checked),
+  equal: (_i: Item<T>) => !Object.keys(_i).find(k => i[k] !== _i[k])
 })
 
 export const givenColumns = <T>(columns: Column<T>[]) => ({
@@ -172,10 +172,10 @@ export const Given = {
 
 const CP = {
   list: {
-    row_height: list_row_height,
+    row_height: listRowHeight,
     ref: 'List',
-    height: codepicker_height,
-    width: codepicker_width
+    height: codepickerHeight,
+    width: codepickerWidth
   }
 }
 
