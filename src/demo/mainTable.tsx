@@ -11,11 +11,11 @@ import {
 
 const fakeItems = initFakeItems()
 	
-type Props = {
+export type Props = {
 
 }
 
-type State = {
+export type State = {
 	selected: FakeItem[]
 }
 
@@ -71,7 +71,7 @@ class MainTable extends React.Component<Props, State>{
 					
 					<button
 					onClick={()=>alert(JSON.stringify(s.selected))}
-					disabled={s.selected.length==0?'disabled':false}
+					disabled={s.selected.length==0?true:false}
 					className="btn btn-primary btn-xs">
 						Launch action over {s.selected.length} items
 					</button>
