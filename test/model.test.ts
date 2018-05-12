@@ -6,6 +6,6 @@ describe('Method over lists', () => {
     const lengthOfElementsHigherThanZero = Object.keys(counter).filter(
       k => counter[k] > 0
     ).length
-    expect(lengthOfElementsHigherThanZero == 0).toBeTruthy()
+    expect(lengthOfElementsHigherThanZero === 0).toBeTruthy()
   })
 })
