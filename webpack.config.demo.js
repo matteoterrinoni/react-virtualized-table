@@ -8,7 +8,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const PATHS = {
   app: path.join(__dirname, 'src/demo'),
-  dist: path.join(__dirname, 'dist'),
+  dist: path.join(__dirname, 'dist/demo'),
   assets: path.join(__dirname, 'assets'),
   mocks: path.join(__dirname, 'mocks'),
   deps: path.join(__dirname, 'node_modules')
@@ -95,22 +95,14 @@ switch (process.env.NODE_ENV) {
 		//create an happypack threadpool
 		//change the size to fit the numbers of core in the machine
 		//happypack reduces build time of ~2.5s in 2 core local machine
-		var HappyPack = require('happypack');
-		var happyThreadPool = HappyPack.ThreadPool({ size: 2 });
 
 		config.module.rules = [
 
 			...config.module.rules,
 
-			{
-                test: /\.s?css$/,
-                loader: 'happypack/loader?id=styles'
-            },
+			{ test: /\.tsx?$/,  use: [ { loader:'ts-loader', options: { transpileOnly: true} } ] },
 
-            {
-            	test: /\.tsx?$/,
-            	loader: 'happypack/loader?id=ts'
-            }
+			{ test: /\.s?css$/, use: ["style-loader","css-loader","sass-loader"]},
 
 		]
 
@@ -121,40 +113,9 @@ switch (process.env.NODE_ENV) {
 			
 			...config.plugins, // ES6 array destructuring, available in Node 5+
 
-			//use happypack to load ts
-			new HappyPack({
-				id: 'ts',
-				threadPool: happyThreadPool,
-				loaders: [
-				{
-					path: 'ts-loader',
-					query: { happyPackMode: true }
-				}
-				]
-			}),
-
-			//use happypack to load s/css
-			new HappyPack({
-				id: 'styles',
-				threadPool: happyThreadPool,
-				loaders: ["style-loader","css-loader","sass-loader"]
-			}),
-
 			//setup production NODE_ENV setting to remove all the development oriented warnings and overhead
 			new webpack.DefinePlugin({
 				'process.env.NODE_ENV': JSON.stringify(production)
-			}),
-
-			//export all node_modules and .woff files under vendor
-			new webpack.optimize.CommonsChunkPlugin({
-				name: 'vendor',
-				filename: 'vendor.[chunkhash].js',
-				minChunks (module) {
-					return ((module.context &&
-						module.context.indexOf('node_modules') >= 0) ||
-					(module.resource &&
-						(/^.*\.woff$/).test(module.resource)));
-				}
 			}),
 
 			new HtmlWebpackPlugin({

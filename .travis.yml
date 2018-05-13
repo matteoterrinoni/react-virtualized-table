@@ -17,3 +17,6 @@ after_success:
   - npm run report-coverage
   - npm run deploy-docs
   - npm run semantic-release
+  - npm run build:demo
+  - chmod +x deploy.demo.sh
+  - ./deploy.demo.sh         
