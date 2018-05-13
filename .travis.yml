@@ -19,5 +19,4 @@ after_success:
   - npm run semantic-release
   - npm run build:demo
   - echo "$SFTP_KEY" | base64 --decode >/tmp/sftp_rsa
-  - export SSHPASS=$SFTP_PASSWORD
-  - sshpass -e scp -P $SFTP_PORT -i /tmp/sftp_rsa -r dist/demo/* $SFTP_USER@$SFTP_HOST:~/public_html/react-virtualized-table-demo/
+  - scp -P $SFTP_PORT -i /tmp/sftp_rsa -r dist/demo/* $SFTP_USER@$SFTP_HOST:~/public_html/react-virtualized-table-demo/
