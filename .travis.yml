@@ -18,5 +18,6 @@ after_success:
   - npm run deploy-docs
   - npm run semantic-release
   - npm run build:demo
-  - chmod +x deploy.demo.sh
+  - echo "$SFTP_KEY" | base64 --decode >/tmp/sftp_rsa
+  - chmod +x deploy.demo.sh $SFTP_USER $SFTP_PASSWORD $SFTP_HOST $SFTP_PORT
   - ./deploy.demo.sh         
