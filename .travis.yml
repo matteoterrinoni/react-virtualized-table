@@ -1,24 +1,26 @@
 language: node_js
 branches:
   only:
-    - master
-    - /^greenkeeper/.*$/
+  - master
+  - "/^greenkeeper/.*$/"
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 notifications:
   email: false
 node_js:
-  - node
+- node
 script:
-  - npm run test:prod && npm run build
+- npm run test:prod && npm run build
 after_success:
-  - npm run report-coverage
-  - npm run deploy-docs
-  - npm run semantic-release
-  - npm run build:demo
-  - echo "$SFTP_KEY" | base64 --decode >/tmp/sftp_rsa
-  - eval "$(ssh-agent -s)"
-  - chmod 600 /tmp/sftp_rsa
-  - scp -o StrictHostKeyChecking=no -P $SFTP_PORT -i /tmp/sftp_rsa -r dist/demo/* $SFTP_USER@$SFTP_HOST:~/public_html/react-virtualized-table-demo/
+- npm run report-coverage
+- npm run deploy-docs
+- npm run semantic-release
+- npm run build:demo
+- eval "$(ssh-agent -s)"
+- scp -o StrictHostKeyChecking=no -P $SFTP_PORT -i /tmp/sftp_rsa -r dist/demo/* $SFTP_USER@$SFTP_HOST:~/public_html/react-virtualized-table-demo/
+before_install:
+- openssl aes-256-cbc -K $encrypted_22f2717050cf_key -iv $encrypted_22f2717050cf_iv
+  -in sshkey.enc -out /tmp/sftp_rsa -d
+- chmod 0400 /tmp/sftp_rsa
