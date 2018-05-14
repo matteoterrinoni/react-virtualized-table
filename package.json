@@ -75,8 +75,7 @@
         "statements": 0
       }
     },
-    "collectCoverage": true,
-    "mapCoverage": true
+    "collectCoverage": true
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0-alpha",
