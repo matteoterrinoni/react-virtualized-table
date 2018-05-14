@@ -24,7 +24,7 @@ let config = {
 	entry: 'src/demo/index.tsx'
 	
 	, output: { 
-		publicPath : '/demo/',
+		publicPath : '',
 		path: PATHS.dist, 
 		filename: '[name].[hash].js',
 	}
