@@ -5,6 +5,8 @@ const codepickerHeight = 250
 const codepickerWidth = 250
 const paddingLeft = 15
 
+const BASE_NAME = 'react-virtualized'
+
 export type Item<T> = T & {
   visible?: boolean
   checked?: boolean
@@ -52,12 +54,7 @@ export const initCounter = () => ({
   checked: 0
 })
 
-const getList = <T>(
-  _items: Item<T>[],
-  filter: string,
-  matcher,
-  counter: Counter
-) => {
+const getList = <T>(_items: Item<T>[], filter: string, matcher, counter: Counter) => {
   const match = <T>(i: Item<T>) =>
     (matcher ? matcher() : JSON.stringify(i).toLowerCase()).indexOf(filter) > -1
   _items.forEach((it, i) => {
@@ -73,11 +70,7 @@ const getList = <T>(
   })
 }
 
-const sortItems = <T>(
-  items: Item<T>[],
-  sorting: Sort,
-  columns: Column<T>[]
-) => {
+const sortItems = <T>(items: Item<T>[], sorting: Sort, columns: Column<T>[]) => {
   let _items = items
   givenColumns(columns)
     .sortables(sorting)
@@ -129,11 +122,9 @@ const isSortable = <T>(c: Column<T>, sorting?: Sort) =>
   c.fn && (sorting ? givenColumn(c).getSort(sorting) : true)
 
 export const givenItems = <T>(items: Item<T>[]) => ({
-  filter: (filter, matcher, counter) =>
-    getList(items, filter || '', matcher, counter),
+  filter: (filter, matcher, counter) => getList(items, filter || '', matcher, counter),
   visibles: () => items.filter(isVisible),
-  sort: (sorting: Sort, columns: Column<T>[]) =>
-    sortItems(items, sorting, columns),
+  sort: (sorting: Sort, columns: Column<T>[]) => sortItems(items, sorting, columns),
   toggleCheck: val => items.map(i => givenItem(i).toggleCheck(val)),
   toggleCheckItem: (_i: Item<T>) =>
     givenItem((items as any).find(i => givenItem(i).equal(_i))).toggleCheck(),
@@ -176,7 +167,16 @@ const CP = {
     ref: 'List',
     height: codepickerHeight,
     width: codepickerWidth
-  }
+  },
+  classNames: {
+    wrapper: `${BASE_NAME}-wrapper`,
+    main: BASE_NAME,
+    container: `${BASE_NAME}-container`,
+    head: 'list-head'
+  },
+  defaultContainerStyle: (height?: number) => ({
+    height: height || 'auto'
+  })
 }
 
 export default CP

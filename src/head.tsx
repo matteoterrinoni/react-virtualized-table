@@ -27,7 +27,7 @@ const Head: <T>(N:Props<T>)=>any = (p) => {
 	}
 
 	return (
-		<div className={`list-head`} style={{
+		<div className={CP.classNames.head} style={{
 			height:p.height || CP.list.row_height
 		}}>
 		{

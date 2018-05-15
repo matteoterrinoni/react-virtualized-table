@@ -127,8 +127,8 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 		return loading ? <span>loading...</span> :
 		(
 			<div
-				style={{height:p.height||'auto'}}
-				className="virtualized-table-container"
+				style={CP.defaultContainerStyle(p.height)}
+				className={CP.classNames.container}
 				ref={(e)=>this._container = e}>
 				
 				{
@@ -144,8 +144,8 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 				ref={this._setRef}
 				scrollElement={p.height ? this._container : window}>
 				{({height, isScrolling, registerChild, onChildScroll, scrollTop}) => (
-					<div className="virtualized-table-wrapper">
-					<div className="virtualized-table">
+					<div className={CP.classNames.wrapper}>
+					<div className={CP.classNames.main}>
 					<List
 					autoHeight
 					isScrolling={isScrolling}
