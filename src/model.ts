@@ -5,7 +5,7 @@ const codepickerHeight = 250
 const codepickerWidth = 250
 const paddingLeft = 15
 
-const BASE_NAME = 'react-virtualized'
+const BASE_NAME = 'virtualized-table'
 
 export type Item<T> = T & {
   visible?: boolean
