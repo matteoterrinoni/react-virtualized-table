@@ -22,11 +22,7 @@ export const initFakeItems = (n: number = 1000) => {
   let list: FakeItem[] = []
 
   for (let i = 0; i < n; i++) {
-    list.push({
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      age: faker.random.number()
-    })
+    list.push(fakeItem().random().result)
   }
 
   return list
@@ -41,8 +37,26 @@ export const fakeItem = (_f?: FakeItem) => {
 
     withEmail: (email: string) => fakeItem({ ...f, email }),
 
+    random: () =>
+      fakeItem({
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        age: faker.random.number()
+      }),
+
     result: f
   }
+}
+
+export const sortableFakeItemColumn = {
+  name: 'name',
+  render: v => v,
+  fn: (a, b) => textComparison(a, b, o => o)
+}
+
+export const unsortableFakeItemColumn = {
+  name: 'age',
+  render: v => v
 }
 
 export const fakeItemColumns: VTableColumn<FakeItem>[] = [

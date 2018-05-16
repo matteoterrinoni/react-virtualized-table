@@ -33,24 +33,30 @@ const setup = () => {
   
   Enzyme.configure({ adapter: new Adapter() })
   
-  const Table = mount(<VTable {...props} />)
+  let tableRef
+  const Table = mount(<VTable ref={r=>tableRef = r} {...props} />)
 
-  const TableNoHead = mount(<VTable {...propsNoHead} />)
+  let tableNoHeadRef
+  const TableNoHead = mount(<VTable ref={r=>tableNoHeadRef = r} {...propsNoHead} />)
 
-  const TableFixedHeight = mount(<VTable {...propsFixed} />)
+  let tableFixedHeightRef
+  const TableFixedHeight = mount(<VTable ref={r=>tableFixedHeightRef = r} {...propsFixed} />)
 
   return {
     props,
     Table,
     TableNoHead,
     TableFixedHeight,
-    propsFixed
+    propsFixed,
+    tableRef,
+    tableNoHeadRef,
+    tableFixedHeightRef
   }
 }
 
 describe('VTable', () => {
   it('should render self', () => {
-    const { Table } = setup()
+    const { Table, tableRef } = setup()
     
     expect(Table.html().indexOf(CP.classNames.main)>-1).toEqual(true)
 
@@ -59,16 +65,17 @@ describe('VTable', () => {
   })
 
   it('should not render the head id noHead is passed', () => {
-    const { TableNoHead } = setup()
+    const { TableNoHead, tableNoHeadRef } = setup()
 
     expect(TableNoHead.html().indexOf(CP.classNames.head)).toEqual(-1)
   })
 
   it('should render with fixed height if height is passed', () => {
-    const { TableFixedHeight, propsFixed } = setup()
+    const { TableFixedHeight, propsFixed, tableFixedHeightRef } = setup()
 
     const container = TableFixedHeight.find(`.${CP.classNames.container}`).html()
     expect(container.indexOf(`height: ${propsFixed.height}px`)>-1).toEqual(true)
+
   })
 
 })
