@@ -28,7 +28,7 @@ const Row: <T>(N:Props<T>)=>any = (p) => {
 	}
 
 	return p.item ? (
-		<div className={`list-item`} style={{
+		<div className={CP.classNames.row} style={{
 			height:p.height || CP.list.row_height
 		}}>
 		{
@@ -40,7 +40,7 @@ const Row: <T>(N:Props<T>)=>any = (p) => {
 						key={ci}
 						onClick={()=>c.onClick?c.onClick(p.item[c.name], p.item):null}
 						style={getColumnStyle(c)}
-						className={`list-item-column ${c.isActionsCol?'actions-col':''} ${c.className}`}>
+						className={`${CP.classNames.rowColumn} ${CP.classNames.isActionCol(c.isActionsCol)} ${c.className}`}>
 							{c.render(p.item[c.name], p.item)}
 						</div>
 					)

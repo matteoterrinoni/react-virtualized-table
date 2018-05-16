@@ -40,7 +40,7 @@ const Head: <T>(N:Props<T>)=>any = (p) => {
 						key={ci}
 						style={Gc.getStyle()}
 						onClick={()=>sortable?p.onSortColumn(c):null}
-						className={`list-head-column ${Gc.isSortable()?'sortable':''} ${c.isActionsCol?'actions-col':''} ${c.className?c.className:''}`}>
+						className={`${CP.classNames.headColumn} ${CP.classNames.sortable(Gc.isSortable())} ${CP.classNames.isActionCol(c.isActionsCol)} ${c.className?c.className:''}`}>
 						{c.title || c.name} 
 						{
 							sort &&

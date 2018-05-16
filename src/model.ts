@@ -172,7 +172,14 @@ const CP = {
     wrapper: `${BASE_NAME}-wrapper`,
     main: BASE_NAME,
     container: `${BASE_NAME}-container`,
-    head: 'list-head'
+    head: 'list-head',
+    headColumn: 'list-head-column',
+    sortable: sortable => (sortable ? 'sortable' : ''),
+    isActionCol: isActionCol => (isActionCol ? 'action-col' : ''),
+    rowIndex: (index: number) => `list-item-index-${index}`,
+    row: 'list-item',
+    rowColumn: 'list-item-column',
+    icon: 'material-icons'
   },
   defaultContainerStyle: (height?: number) => ({
     height: height || 'auto'

@@ -86,7 +86,7 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 		const item = visibles[this.getItemIndex(a.index)];
 
 		return (
-			<div className={`list-item-index-${a.index}`} style={a.style} key={a.key}>
+			<div className={CP.classNames.rowIndex(a.index)} style={a.style} key={a.key}>
 				<RowElement
 				columns={columns}
 				height={rowHeight}
