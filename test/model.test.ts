@@ -169,7 +169,7 @@ describe('Method over lists', () => {
     expect(items.filter(i => Given.item(i).checked()).length).toBe(items.length)
     expect(items.filter(i => Given.item(i).visible()).length).toBe(items.length)
 
-    Given.items(items).clean().result
+    Given.items(items).clean()
     expect(items.filter(i => i.checked === undefined).length).toBe(items.length)
     expect(items.filter(i => i.visible === undefined).length).toBe(items.length)
   })
