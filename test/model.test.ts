@@ -89,18 +89,88 @@ describe('Method over lists', () => {
     expect(sortingByEmail['email'] === sortTypes.asc.key).toBeTruthy()
   })
 
-  it('clean is cleaning items from other info', () => {
+  it('should detect if is checked correctly', () => {
+    let citem = fakeItem().random().result as Item<FakeItem>
+
+    expect(Given.item(citem).checked()).toBe(false)
+
+    citem.checked = true
+    expect(Given.item(citem).checked()).toBe(true)
+
+    citem.checked = false
+    expect(Given.item(citem).checked()).toBe(false)
+  })
+
+  it('should toggle check one item correctly', () => {
+    let citem = fakeItem().random().result as Item<FakeItem>
+
+    expect(Given.item(citem).checked()).toBe(false)
+
+    Given.item(citem).toggleCheck()
+    expect(Given.item(citem).checked()).toBe(true)
+
+    Given.item(citem).toggleCheck()
+    expect(Given.item(citem).checked()).toBe(false)
+
+    Given.item(citem).toggleCheck(true)
+    expect(Given.item(citem).checked()).toBe(true)
+
+    Given.item(citem).toggleCheck(false)
+    expect(Given.item(citem).checked()).toBe(false)
+  })
+
+  it('should toggle check one item by reference correctly', () => {
+    let items = initFakeItems(10) as Item<FakeItem>[]
+
+    expect(Given.item(items[0]).checked()).toBe(false)
+
+    Given.items(items).toggleCheckItem(items[0])
+    expect(Given.item(items[0]).checked()).toBe(true)
+  })
+
+  it('should filter checked items correctly', () => {
+    let items = initFakeItems(10) as Item<FakeItem>[]
+
+    expect(Given.items(items).filterChecked().result.length).toBe(0)
+
+    items[0].checked = true
+    expect(Given.items(items).filterChecked().result.length).toBe(1)
+  })
+
+  it('should toggle check all items correctly', () => {
+    let items = initFakeItems(10) as Item<FakeItem>[]
+
+    Given.items(items).toggleCheck(true)
+    expect(Given.items(items).filterChecked().result.length).toBe(items.length)
+
+    Given.items(items).toggleCheck(false)
+    expect(Given.items(items).filterChecked().result.length).toBe(0)
+  })
+
+  it('should clean item correctly', () => {
+    let item = fakeItem().random().result as Item<FakeItem>
+    Given.item(item).toggleCheck(true)
+    item.visible = true
+
+    expect(Given.item(item).checked()).toBeTruthy()
+    expect(Given.item(item).visible()).toBeTruthy()
+
+    Given.item(item).clean()
+    expect(item.checked === undefined).toBeTruthy()
+    expect(item.visible === undefined).toBeTruthy()
+  })
+
+  it('should clean items correctly', () => {
     let counter = initCounter()
     let items = initFakeItems(10) as Item<FakeItem>[]
-    items[0] = fakeItem(items[0]).withName(testname).result
-    items[0].checked = true
-    Given.items(items).filter(testname.toLowerCase(), null, counter)
+    Given.items(items).filter('', null, counter)
+    Given.items(items).toggleCheck(true)
 
-    expect(items[0].checked === true).toBeTruthy()
-    expect(items[0].visible === true).toBeTruthy()
+    expect(items.filter(i => Given.item(i).checked()).length).toBe(items.length)
+    expect(items.filter(i => Given.item(i).visible()).length).toBe(items.length)
 
-    const cleanedItems = Given.items(items).clean().result
-    expect(items[0].checked !== true).toBeTruthy()
-    expect(items[0].visible !== true).toBeTruthy()
+    Given.items(items).clean().result
+    expect(items.filter(i => i.checked === undefined).length).toBe(items.length)
+    expect(items.filter(i => i.visible === undefined).length).toBe(items.length)
   })
 })
