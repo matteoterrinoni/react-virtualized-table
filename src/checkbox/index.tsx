@@ -2,13 +2,17 @@ import * as React from "react"
 
 import "./style.scss"
 
-type Props = {
+export type Props = {
 	onChange?:any,
 	checked?:boolean,
 	children?:any,
 	className?:string
 	disabled?:boolean
 }
+
+import C from './model'
+
+import Icon from 'src/icon'
 
 export default (p:Props) => {
 
@@ -17,11 +21,11 @@ export default (p:Props) => {
 	return (
 		<div className={`field form-group checkbox-wrapper ${className ? className : ''}`}>
 			<div
-				className={`custom-checkbox ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}`}
+				className={`custom-checkbox ${checked ? C.classNames.checkboxChecked : ''} ${disabled ? C.classNames.checkboxDisabled : ''}`}
 				onClick={()=>onChange(!checked)}>
 
-				<i className="material-icons unchecked">check_box_outline_blank</i>
-				<i className="material-icons checked">check_box</i>
+				<Icon name="check_box_outline_blank" />
+				<Icon name="check_box" />
 				
 				<span className="children">{children}</span>
 			

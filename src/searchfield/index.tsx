@@ -1,11 +1,13 @@
 import * as React from 'react'
 
-type Props = {
+export type Props = {
 	onChange:Function,
 	value
 }
 
 import Icon from 'src/icon'
+
+import CP from 'src/model'
 
 export default (p:Props) => {
 	const {
@@ -13,7 +15,7 @@ export default (p:Props) => {
 		value
 	} = p
 	return (
-		<div className="search-box">
+		<div className={CP.classNames.searchField}>
 			<div className="input-group">
 				
 				<input type="text" className="form-control"

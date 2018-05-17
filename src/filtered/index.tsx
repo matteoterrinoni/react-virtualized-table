@@ -29,6 +29,7 @@ export type Props<T> = VProps<T> & {
 	children?:any,
 	filter?:string
 	onChangeFilter?,
+	hideFilter?
 	selectable?
 	onChangeSelection?
 }
@@ -70,11 +71,9 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 	}
 
 	componentWillReceiveProps(n:Props<T>){
-		//if(n.items.length != this.props.items.length){
 		if(JSON.stringify(n.items) != JSON.stringify(this.props.items)){
 			this.load(n)
 		}
-		//}
 	}
 
 	setFilteredList(items){
@@ -175,22 +174,25 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 
 		return (
 			<div className={`filtered-virtualized-table ${!vTableProps.height?'window-scroll':''}`}>
-				<div className="head">
-					<div className="filter-box">
-						<SearchField
-						value={filter}
-						onChange={this.setFilter}/>
+				{
+					p.hideFilter &&
+					<div className="head">
+						<div className="filter-box">
+							<SearchField
+							value={filter}
+							onChange={this.setFilter}/>
+							{
+								<span className="badge badge-secondary counter">{counter.visible}</span>
+							}
+						</div>
 						{
-							<span className="badge badge-secondary counter">{counter.visible}</span>
+							children &&
+							<div className="other-filters">
+								{children}
+							</div>
 						}
 					</div>
-					{
-						children &&
-						<div className="other-filters">
-							{children}
-						</div>
-					}
-				</div>
+				}
 				<VTable {...vTableProps} columns={_columns} items={filteredList} />
 			</div>
 		)
