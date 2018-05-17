@@ -1,5 +1,11 @@
 import { merge, deepCopy, orderBy } from './helpers'
 
+import SF from 'src/searchfield/model'
+
+import I from 'src/icon/model'
+
+import C from 'src/checkbox/model'
+
 const listRowHeight = 50
 const codepickerHeight = 250
 const codepickerWidth = 250
@@ -110,8 +116,8 @@ export const getColumnStyle = <T>(c: Column<T>) => {
   return style
 }
 
-const isVisible = <T>(i: Item<T>) => i.visible
-const isChecked = <T>(i: Item<T>) => i.checked
+const isVisible = <T>(i: Item<T>) => (i.visible ? true : false)
+const isChecked = <T>(i: Item<T>) => (i.checked ? true : false)
 const clean = <T>(i: Item<T>) => {
   i.checked && delete i.checked
   i.visible && delete i.visible
@@ -137,7 +143,7 @@ export const givenItem = <T>(i: Item<T>) => ({
   visible: () => isVisible(i),
   checked: () => isChecked(i),
   clean: () => clean(i),
-  toggleCheck: (val?) => (i.checked = val !== undefined ? !val : !i.checked),
+  toggleCheck: (val?) => (i.checked = val !== undefined ? val : !i.checked),
   equal: (_i: Item<T>) => !Object.keys(_i).find(k => i[k] !== _i[k])
 })
 
@@ -169,6 +175,9 @@ const CP = {
     width: codepickerWidth
   },
   classNames: {
+    ...SF.classNames,
+    ...I.classNames,
+    ...C.classNames,
     wrapper: `${BASE_NAME}-wrapper`,
     main: BASE_NAME,
     container: `${BASE_NAME}-container`,
@@ -178,8 +187,7 @@ const CP = {
     isActionCol: isActionCol => (isActionCol ? 'action-col' : ''),
     rowIndex: (index: number) => `list-item-index-${index}`,
     row: 'list-item',
-    rowColumn: 'list-item-column',
-    icon: 'material-icons'
+    rowColumn: 'list-item-column'
   },
   defaultContainerStyle: (height?: number) => ({
     height: height || 'auto'
