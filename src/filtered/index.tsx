@@ -17,6 +17,8 @@ import Checkbox from 'src/checkbox'
 
 import './style.scss'
 
+import M from './model'
+
 import CP, {
 	Item,
 	Given,
@@ -150,7 +152,7 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 				<span className="badge badge-secondary">{this.state.counter.checked}</span>
 			],
 			width: 60,
-			className:"selection-col",
+			className: M.classNames.selectionCol,
 			render: (value,data,cellProps) => (
 				<Checkbox
 				onChange={ (e) => this.toggleSelection(data) }
@@ -173,11 +175,11 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 		const filter = this.props.filter || this.state.filter
 
 		return (
-			<div className={`filtered-virtualized-table ${!vTableProps.height?'window-scroll':''}`}>
+			<div className={`${M.classNames.filtered} ${M.classNames.windowScroll(vTableProps.height)}`}>
 				{
-					p.hideFilter &&
-					<div className="head">
-						<div className="filter-box">
+					!p.hideFilter &&
+					<div className={M.classNames.filteredHead}>
+						<div className={M.classNames.filterBox}>
 							<SearchField
 							value={filter}
 							onChange={this.setFilter}/>
@@ -187,7 +189,7 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 						</div>
 						{
 							children &&
-							<div className="other-filters">
+							<div className={M.classNames.otherFilters}>
 								{children}
 							</div>
 						}

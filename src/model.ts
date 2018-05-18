@@ -6,6 +6,8 @@ import I from 'src/icon/model'
 
 import C from 'src/checkbox/model'
 
+import F from 'src/filtered/model'
+
 const listRowHeight = 50
 const codepickerHeight = 250
 const codepickerWidth = 250

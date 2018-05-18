@@ -83,7 +83,7 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 	rowRenderer (a, visibles){
 		const {rowRenderer, rowHeight, columns, noHead, items} = this.props
 		const {sortedItems} = this.state
-		const item = visibles[this.getItemIndex(a.index)];
+		const item = visibles[a.index];
 
 		return (
 			<div className={CP.classNames.rowIndex(a.index)} style={a.style} key={a.key}>
@@ -111,10 +111,6 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 		const p = this.props
 		const length =  visibles.length || 0
 		return length
-	}
-
-	getItemIndex(i){
-		return i
 	}
 
 	render(){
