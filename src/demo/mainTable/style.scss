@@ -1,0 +1,9 @@
+.maintable-buttons{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	& > *{
+		margin-left: 5px;
+	}
+}

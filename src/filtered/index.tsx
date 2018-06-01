@@ -15,9 +15,13 @@ import SearchField from 'src/searchfield'
 
 import Checkbox from 'src/checkbox'
 
+import Head from './head'
+
 import './style.scss'
 
-import M from './model'
+import M, {
+	filtered
+} from './model'
 
 import CP, {
 	Item,
@@ -34,17 +38,21 @@ export type Props<T> = VProps<T> & {
 	hideFilter?
 	selectable?
 	onChangeSelection?
+	stickyFilter?
 }
 
 export type State<T> = {
 	filter,
 	filteredList,
-	counter:Counter
+	counter:Counter,
+	headRef
 }
 
 let items
 
 export default class FilteredVirtualizedTable<T> extends React.Component<Props<T>, State<T>>{
+
+	container
 	constructor(p:Props<T>){
 		super(p)
 
@@ -58,7 +66,8 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 		this.state = {
 			filter,
 			filteredList:list,
-			counter
+			counter,
+			headRef: null
 		}
 
 		this.setFilteredList = this.setFilteredList.bind(this)
@@ -66,6 +75,7 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 		this.setFilter = this.setFilter.bind(this)
 		this.toggleSelection = this.toggleSelection.bind(this)
 		this.toggleSelectionAll = this.toggleSelectionAll.bind(this)
+		this.container = React.createRef();
 	}
 
 	getElem(elem){
@@ -92,10 +102,10 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 		Given.items(items).filter((filter!=undefined ? filter : this.state.filter), this.props.matcher, counter || initCounter())
 	}
 
-	setFilter(_filter:string, props:Props<T>){
+	setFilter(_filter:string, props?:Props<T>){
 		const _props = props || this.props
+		const items = props ? this.getElem(_props.items) : this.state.filteredList
 		let filter = _filter.toLowerCase()
-		const items = this.getElem(_props.items)
 		let counter = initCounter()
 		this.filterTheList(items, filter, counter)
 		this.setState(merge(this.state, {
@@ -147,7 +157,7 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 			title: [
 				<Checkbox checked={checkedAll}
 				disabled={this.props.items.length == 0}
-				onChange={ (e) => this.toggleSelectionAll(checkedAll)}/>,
+				onChange={ (e) => this.toggleSelectionAll(!checkedAll)}/>,
 
 				<span className="badge badge-secondary">{this.state.counter.checked}</span>
 			],
@@ -162,9 +172,11 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 	}
 
 	render(){
-		const {filteredList, counter} = this.state;
-		const {items, ...p} = this.props
-		const {matcher, children, columns, selectable, ...vTableProps} = p
+		const s = this.state;
+		const p = this.props;
+		const {filteredList, counter} = s;
+		const {items, ..._p} = p
+		const {matcher, children, columns, selectable, stickyFilter, ...vTableProps} = _p
 
 		const _columns = selectable ?
 		[
@@ -175,27 +187,31 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 		const filter = this.props.filter || this.state.filter
 
 		return (
-			<div className={`${M.classNames.filtered} ${M.classNames.windowScroll(vTableProps.height)}`}>
+			<div
+			ref={this.container}
+			className={`${M.classNames.filtered} ${M.classNames.windowScroll(vTableProps.height)}`}>
 				{
 					!p.hideFilter &&
-					<div className={M.classNames.filteredHead}>
-						<div className={M.classNames.filterBox}>
-							<SearchField
-							value={filter}
-							onChange={this.setFilter}/>
-							{
-								<span className="badge badge-secondary counter">{counter.visible}</span>
-							}
-						</div>
-						{
-							children &&
-							<div className={M.classNames.otherFilters}>
-								{children}
-							</div>
-						}
+					<div ref={filtered(this).setHeadRef}>
+						<Head
+						stickyFilter={stickyFilter}
+						stickyFilterOffset={vTableProps.stickyOffset}
+						children={children}
+						counter={counter}
+						filter={filter}
+						onChangeFilter={this.setFilter}
+						scrollElement={vTableProps.scrollElement}
+						bottomContainer={this.container.current}/>
 					</div>
 				}
-				<VTable {...vTableProps} columns={_columns} items={filteredList} />
+				{
+					filtered(this).showTable() &&
+					<VTable
+					{...vTableProps}
+					stickyOffset={filtered(this).getChildTableOffsetTop()}
+					columns={_columns}
+					items={filteredList} />
+				}
 			</div>
 		)
 	}

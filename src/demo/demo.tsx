@@ -5,7 +5,8 @@ import * as V from '../react-virtualized-table';
 import {
 	FakeItem,
 	initFakeItems,
-	textComparison
+	textComparison,
+	demo
 } from './model'
 
 import 'MaterialIcons'
@@ -13,46 +14,138 @@ import 'Bootstrap'
 
 import Table from './mainTable'
 
-const Demo = () => {
+import './style.scss'
 
-	const columns: V.VTableColumn<FakeItem>[] = [
-		{
-			name: 'name',
-			render: (v) => <strong>{v}</strong>,
-			fn: (a, b)=>textComparison(a, b, (o)=>o),
-		},
-		{
-			name: 'age',
-			render: (v) => <span>{v}</span>
-		},
-		{
-			name: 'email',
-			render: (v) => <span>{v}</span>
+import Jumbotron from './jumbotron'
+
+import Sidebar from './sidebar'
+
+import Navbar from './navbar'
+
+export type Props = {
+
+}
+
+export type State = {
+	openSidebar,
+	navbar
+}
+
+class Demo extends React.Component<Props, State> {
+
+	constructor(p){
+		super(p)
+
+		this.state = {
+			openSidebar : false,
+			navbar : true
 		}
-	]
+	}
+	
+	render(){
+		const s = this.state
 
-	return (
+		const withOffsetTop = s.navbar?true:false
 
-		<div className="demo">
-			
-			<div className="jumbotron jumbotron-fluid">
-				<div className="container">
-					<h1 className="display-4">React Virtualized Table</h1>
-					<p className="lead">A simple virtualized table component to replace react-datagrid</p>
-					<hr className="my-4" />
-					<p>A useful bridge between react-datagrid (R.I.P.) and react-virtualized</p>
-					<p className="lead">
-						<a className="btn btn-primary btn-lg" href="#" role="button">GitHub</a>
-					</p>
-				</div>
+		return (
+
+			<div className="demo">
+
+				<Navbar
+				open={s.navbar}
+				onOpenSidebar={()=>demo(this).toggleSidebar(true)}
+				onToggleNavbar={()=>demo(this).toggleNavbar()}/>
+				
+				<Jumbotron />
+
+				{
+					true &&
+					<Sidebar
+					open={s.openSidebar}
+					onCloseSidebar={()=>demo(this).toggleSidebar(false)}/>
+				}
+
+				{
+					true &&
+					<div className="container">
+						<div className="row">
+							<div className="col-md">
+								stickyHead and stickyFilter
+								<Table
+								withOffsetTop={withOffsetTop}
+								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
+								height={300}
+								stickyHead={true}
+								stickyFilter={true}/>
+							</div>
+							<div className="col-md">
+								stickyHead
+								<Table
+								withOffsetTop={withOffsetTop}
+								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
+								height={300}
+								stickyHead={true}
+								stickyFilter={false}/>
+							</div>
+							<div className="col-md">
+								stickyFilter
+								<Table
+								withOffsetTop={withOffsetTop}
+								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
+								height={300}
+								stickyHead={false}
+								stickyFilter={true}/>
+							</div>
+							<div className="col-md">
+								no sticky
+								<Table
+								withOffsetTop={withOffsetTop}
+								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
+								height={300}
+								stickyHead={false}
+								stickyFilter={false}/>
+							</div>
+						</div>
+					</div>
+				}
+
+				{
+					true &&
+					<div className="container">
+						<Table amount={30} withOffsetTop={withOffsetTop} stickyHead={true} stickyFilter={true}/>
+					</div>
+				}
+				<br/>
+				<br/>
+				<hr/>
+				<br/>
+				<br/>
+				{
+					true &&
+					<div className="container">
+						<Table amount={30} withOffsetTop={withOffsetTop} stickyHead={true}/>
+					</div>
+				}
+				<br/>
+				<br/>
+				<hr/>
+				<br/>
+				<br/>
+				{
+					true &&
+					<div className="container">
+						<Table amount={30} withOffsetTop={withOffsetTop}/>
+					</div>
+				}
+				<br/>
+				<br/>
+				<hr/>
+				<br/>
+				<br/>
+
 			</div>
-
-			<div className="container">
-
-				<Table />
-			</div>
-		</div>
-	)
+		)
+	}
 }
 
 export default Demo

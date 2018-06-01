@@ -21,6 +21,12 @@
 		border-bottom: 2px solid #eaeaea;
 		background: white;
 
+		&.fixed{
+			position: fixed;
+			top: 0;
+			z-index: 1;
+		}
+
 	}
 
 	.filter-box{

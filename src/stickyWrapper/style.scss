@@ -1,0 +1,17 @@
+.sticky-wrapper{
+	position: relative;
+	
+	&.fixed{
+		& > .sticky-content{
+			position: fixed;
+			z-index: 1;
+		}
+	}
+
+	&.bottom-fixed{
+		& > .sticky-content{
+			position: absolute;
+			z-index: 1;
+		}
+	}
+}

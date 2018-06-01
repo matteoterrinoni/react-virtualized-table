@@ -1,4 +1,6 @@
-import { merge, deepCopy, orderBy } from './helpers'
+import { merge, deepCopy, orderBy, textComparison } from './helpers'
+
+import { VTable } from 'src'
 
 import SF from 'src/searchfield/model'
 
@@ -7,6 +9,8 @@ import I from 'src/icon/model'
 import C from 'src/checkbox/model'
 
 import F from 'src/filtered/model'
+
+import { Props as VProps, State as VState } from 'src'
 
 const listRowHeight = 50
 const codepickerHeight = 250
@@ -149,18 +153,72 @@ export const givenItem = <T>(i: Item<T>) => ({
   equal: (_i: Item<T>) => !Object.keys(_i).find(k => i[k] !== _i[k])
 })
 
-export const givenColumns = <T>(columns: Column<T>[]) => ({
-  getDefaultSorting: () => getDefaultSorting(columns),
-  sortables: (sorting?: Sort) => columns.filter(c => isSortable(c, sorting))
-})
+export const givenColumns = <T>(_columns?: Column<T>[]) => {
+  let columns = _columns || []
+  return {
+    add: (cols: Column<T>[]) => givenColumns(columns.concat(cols)),
+    addColumnFor: (key, sortable?) => givenColumns(columns).add([buildColumn(key, sortable)]),
+    getDefaultSorting: () => getDefaultSorting(columns),
+    sortables: (sorting?: Sort) => columns.filter(c => isSortable(c, sorting)),
+    result: columns
+  }
+}
 
-export const givenColumn = <T>(c: Column<T>) => ({
-  isSortable: (sorting?: Sort) => isSortable(c, sorting),
-  sort: (sorting: Sort) => sortColumn(c, sorting),
-  getSort: (sorting?: Sort) => sorting && sorting[c.name],
-  name: () => c.name,
-  getStyle: () => getColumnStyle(c)
-})
+export const buildColumn = <T>(key?, sortable?) =>
+  ({
+    name: key || '',
+    render: a => a,
+    fn: !sortable ? null : (a, b) => textComparison(a, b, o => o)
+  } as Column<T>)
+
+export const givenColumn = <T>(_c: Column<T>) => {
+  let c = _c || buildColumn()
+  return {
+    withName: (name: string) => {
+      c.name = name
+      givenColumn(c)
+    },
+    withRender: render => {
+      c.render = render
+      givenColumn(c)
+    },
+    withSortFn: fn => {
+      c.fn = fn
+      givenColumn(c)
+    },
+    isSortable: (sorting?: Sort) => isSortable(c, sorting),
+    sort: (sorting: Sort) => sortColumn(c, sorting),
+    getSort: (sorting?: Sort) => sorting && sorting[c.name],
+    name: () => c.name,
+    getStyle: () => getColumnStyle(c),
+    result: c
+  }
+}
+
+export const table = <T>(t: VTable<T>) => {
+  const p = t.props
+  const s = t.state
+  return {
+    getHeadScrollElement: () => (p.scrollElement ? p.scrollElement : window),
+    getScrollElement: () => (p.scrollElement ? p.scrollElement : p.height ? s.container : window),
+    getHeight: () =>
+      p.scrollElement
+        ? 0
+        : (p.height || 0) -
+          ((table(t).shouldRenderHeadOutiseOfContainer() && table(t).getRowHeight()) || 0),
+    getRowHeight: () => p.rowHeight || CP.list.row_height,
+    getDefaultSorting: () =>
+      (s && s.sorting) || p.defaultSorting || Given.columns(p.columns).getDefaultSorting(),
+    getSortedItems: (sorting?) =>
+      Given.items(p.items).sort(sorting || table(t).getDefaultSorting(), p.columns).result,
+    setContainer: c => s && t && !s.container && t.setState({ container: c }),
+    shouldRenderHead: () => !p.noHead,
+    shouldRenderHeadOutiseOfContainer: () =>
+      table(t).shouldRenderHead() && p.height && p.stickyHead,
+    shouldRenderHeadInsideOfContainer: () =>
+      table(t).shouldRenderHead() && !table(t).shouldRenderHeadOutiseOfContainer()
+  }
+}
 
 export const Given = {
   items: givenItems,
@@ -189,7 +247,8 @@ const CP = {
     isActionCol: isActionCol => (isActionCol ? 'action-col' : ''),
     rowIndex: (index: number) => `list-item-index-${index}`,
     row: 'list-item',
-    rowColumn: 'list-item-column'
+    rowColumn: 'list-item-column',
+    fixed: 'fixed'
   },
   defaultContainerStyle: (height?: number) => ({
     height: height || 'auto'

@@ -5,6 +5,8 @@ $rows:$gray-lighter;
 
 .virtualized-table-container{
 	overflow: auto;
+	z-index: 0;
+	position: relative;
 
 	.ReactVirtualized__Grid__innerScrollContainer{
 		padding-bottom: 100px;
@@ -16,6 +18,7 @@ $rows:$gray-lighter;
 	align-items: center;
 	border-bottom: 1px solid #eaeaea;
 	width: 100%;
+	background: white;
 
 	-webkit-touch-callout: none;
     -webkit-user-select: none;

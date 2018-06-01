@@ -52,8 +52,4 @@ describe('Checkbox', () => {
    	expect(NewCheckbox.html().indexOf(CM.classNames.checkboxDisabled)>-1).toEqual(false)
    })
 
-   it('should not be rendered as checked if checked is not passed', () => {
-   	expect(NewCheckbox.html().indexOf(CM.classNames.checkboxChecked)>-1).toEqual(false)
-   })
-
 })

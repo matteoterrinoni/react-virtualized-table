@@ -2,15 +2,14 @@ import * as React from "react"
 
 import "./style.scss"
 
-export type Props = {
-	onChange?:any,
-	checked?:boolean,
-	children?:any,
-	className?:string
-	disabled?:boolean
-}
+import C, {
+	Props,
+	getCheckboxClassName
+} from './model'
 
-import C from './model'
+export {
+	Props
+} from './model'
 
 import Icon from 'src/icon'
 
@@ -19,13 +18,13 @@ export default (p:Props) => {
 	const {onChange, children, checked, className, disabled} = p;
 
 	return (
-		<div className={`field form-group checkbox-wrapper ${className ? className : ''}`}>
+		<div className={`field form-group ${C.classNames.checkboxWrapper} ${className ? className : ''}`}>
 			<div
-				className={`custom-checkbox ${checked ? C.classNames.checkboxChecked : ''} ${disabled ? C.classNames.checkboxDisabled : ''}`}
+				className={getCheckboxClassName(p)}
 				onClick={()=>onChange(!checked)}>
 
-				<Icon name="check_box_outline_blank" />
-				<Icon name="check_box" />
+				<Icon type={C.classNames.checkboxUnchecked} name="check_box_outline_blank" />
+				<Icon type={C.classNames.checkboxChecked} name="check_box" />
 				
 				<span className="children">{children}</span>
 			

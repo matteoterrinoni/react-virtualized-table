@@ -14,6 +14,7 @@ import {
 import CP, {
 	Item,
 	Given,
+	table,
 	Column,
 	Sort,
 	sortTypes
@@ -32,30 +33,37 @@ export type Props<T> = {
 	rowHeight?:number,
 	columns:Column<T>[],
 	noHead?:boolean,
-	defaultSorting?: Sort
+	defaultSorting?: Sort,
+	scrollElement?
+	stickyHead?
+	stickyOffset?
 }
 
 export type State<T> = {
 	loading:boolean,
 	sortedItems:Item<T>[]
-	sorting: Sort
+	sorting: Sort,
+	container
 }
 
 export class VTable<T> extends React.Component<Props<T>, State<T>>{
 	
+	wrapper
 	constructor(p:Props<T>){
 		super(p)
 
-		let sorting = p.defaultSorting || Given.columns(p.columns).getDefaultSorting()
+		let sorting = table(this).getDefaultSorting()
 		
 		this.state = {
 			loading: false,
-			sortedItems:Given.items(p.items).sort(sorting, p.columns).result,
-			sorting
+			sortedItems:table(this).getSortedItems(sorting),
+			sorting,
+			container:null
 		}
 
 		this.rowRenderer = this.rowRenderer.bind(this);
 		this.sortColumn = this.sortColumn.bind(this);
+		this.wrapper = React.createRef();
 	}
 
 	componentWillReceiveProps(n:Props<T>){
@@ -63,7 +71,7 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 	}
 
 	load(p:Props<T>, _sorting?){
-		let sorting = _sorting || this.state.sorting || Given.columns(p.columns).getDefaultSorting();
+		let sorting = _sorting || table(this).getDefaultSorting();
 		this.setState(merge(this.state, {
 			sortedItems:Given.items(p.items).sort(sorting, p.columns).result,
 			sorting
@@ -97,7 +105,6 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 	}
 
 	_windowScroller
-	_container
 	_setRef = windowScroller => {
 		this._windowScroller = windowScroller;
 	};
@@ -113,54 +120,79 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 		return length
 	}
 
+	head(t:VTable<T>){
+		const p = t.props
+		const s = t.state
+
+		return <Head
+			scrollElement={table(t).getHeadScrollElement()}
+			columns={p.columns}
+			sorting={s.sorting}
+			onSortColumn={t.sortColumn}
+			height={table(t).getRowHeight()}
+			stickyHead={p.stickyHead}
+			stickyHeadOffset={p.stickyOffset}
+			bottomContainer={t.wrapper.current}
+			/>
+	}
+
 	render(){
 		const {loading, sorting, sortedItems} = this.state;
 		const p = this.props
+		const s = this.state
 
-		const rowHeight = p.rowHeight || CP.list.row_height
+		const rowHeight = table(this).getRowHeight()
 		const visibles = Given.items(sortedItems).visibles()
+		const scrollElement = table(this).getScrollElement()
+		const height = table(this).getHeight()
 
 		return loading ? <span>loading...</span> :
 		(
-			<div
-				style={CP.defaultContainerStyle(p.height)}
-				className={CP.classNames.container}
-				ref={(e)=>this._container = e}>
-				
+			<div ref={this.wrapper}>
 				{
-					!p.noHead &&
-					<Head 
-					columns={p.columns}
-					sorting={sorting}
-					onSortColumn={this.sortColumn}
-					height={rowHeight}/>
+					table(this).shouldRenderHeadOutiseOfContainer() &&
+					this.head(this)
 				}
+				<div
+					style={CP.defaultContainerStyle(height)}
+					className={CP.classNames.container}
+					ref={(e)=>table(this).setContainer(e)}>
 
-				<WindowScroller
-				ref={this._setRef}
-				scrollElement={p.height ? this._container : window}>
-				{({height, isScrolling, registerChild, onChildScroll, scrollTop}) => (
-					<div className={CP.classNames.wrapper}>
-					<div className={CP.classNames.main}>
-					<List
-					autoHeight
-					isScrolling={isScrolling}
-					onScroll={onChildScroll}
-					scrollTop={scrollTop}
-					ref={this._setListRef}
-					recomputeRowHeights={false}
-					forceUpdate={false}
-					height={height}
-					overscanRowCount={20}
-					rowHeight={rowHeight}
-					rowRenderer={a=>this.rowRenderer(a, visibles)}
-					rowCount={this.length(visibles)}
-					width={CP.list.width}
-					/>
-					</div>
-					</div>
-					)}
-				</WindowScroller>
+					{
+						table(this).shouldRenderHeadInsideOfContainer() &&
+						this.head(this)
+					}
+
+					{
+						s.container &&
+						<WindowScroller
+						ref={this._setRef}
+						scrollElement={scrollElement}>
+						{({height, isScrolling, registerChild, onChildScroll, scrollTop}) => (
+							<div className={CP.classNames.wrapper}>
+							<div className={CP.classNames.main}>
+							<List
+							autoHeight
+							isScrolling={isScrolling}
+							onScroll={onChildScroll}
+							scrollTop={scrollTop}
+							ref={this._setListRef}
+							recomputeRowHeights={false}
+							forceUpdate={false}
+							height={height}
+							overscanRowCount={20}
+							rowHeight={rowHeight}
+							rowRenderer={a=>this.rowRenderer(a, visibles)}
+							rowCount={this.length(visibles)}
+							width={CP.list.width}
+							/>
+							</div>
+							</div>
+							)}
+						</WindowScroller>
+					}
+					
+	        	</div>
         	</div>
         )
 	}

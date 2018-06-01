@@ -1,5 +1,7 @@
 import * as faker from 'faker'
 
+import Demo from './demo'
+
 export type FakeItem = {
   name: string
   age: number
@@ -28,4 +30,21 @@ export const textComparison = (a, b, prop: (a: any) => any) => {
     .toLowerCase()
     .trim()
   return _a < _b ? -1 : _a > _b ? 1 : 0
+}
+
+export const demo = (d: Demo) => {
+  const p = d.props
+  const s = d.state
+
+  return {
+    toggleNavbar: (val?) =>
+      d.setState({
+        navbar: val !== undefined ? val : !s.navbar
+      }),
+
+    toggleSidebar: (val?) =>
+      d.setState({
+        openSidebar: val !== undefined ? val : !s.openSidebar
+      })
+  }
 }

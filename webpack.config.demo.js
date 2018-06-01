@@ -142,7 +142,9 @@ switch (process.env.NODE_ENV) {
 			//it does not affect normal chunkhash working
 			//new HardSourceWebpackPlugin()
 
-		]
+		],
+
+		config['mode'] = 'production'
 
 		break;
 	default:
@@ -201,6 +203,8 @@ switch (process.env.NODE_ENV) {
 
 		//this option specifies the public URL of the output directory when referenced in a browser
 		config.output['publicPath'] = '/'
+
+		config['mode'] = 'development'
 
 		break;
 }

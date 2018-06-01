@@ -1,0 +1,25 @@
+.navbar{
+	transition: transform ease-in-out .2s;
+	margin-top: -56px;
+
+	&.closed{
+		transform: translateY(-100%)
+	}
+
+	&.opened{
+		transform: translateY(0)
+	}
+
+	.toggle-navbar{
+		position: absolute;
+		top: 56px;
+		background: #f8f9fa;
+		width: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 40px;
+		right: 10px;
+		cursor: pointer;
+	}
+}
