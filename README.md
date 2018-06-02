@@ -1,5 +1,4 @@
 # React Virtualized Table
-=======
 [Demo here!](http://matteoterrinoni.it/react-virtualized-table-demo/ "Demo here!")
 ---
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -15,4 +14,22 @@ A simple virtualized table project that bridge **[react-datagrid](https://www.np
 
 ```bash
 npm install
+```
+
+```javascript
+import {
+	FilteredVTable,
+	GivenVTable
+} from 'react-virtualized-table'
+
+const columns = GivenVTable.columns()
+.addColumnFor('name', true)
+.addColumnFor('age')
+.addColumnFor('email', true)
+.result
+
+<V.FilteredVTable
+items={[...arrayOfItems]}
+columns={columns}/>
+
 ```
