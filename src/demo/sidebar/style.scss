@@ -10,6 +10,7 @@
 	height: 100vh;
 	overflow: auto;
 	transition: transform ease-in-out .2s;
+	padding-top: 0;
 
 	&.closed{
 		transform: translateX(calc(-100% - 50px))
@@ -20,7 +21,19 @@
 	}
 
 	.toggle-sidebar{
-		display: flex;
+		top: -15px;
+		right: -15px;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		padding: 0;
 		align-items: center;
+		display: flex;
+		justify-content: center;
+		border-radius: 20px;
+		margin: 10px;
+		margin-right: 0;
+		background: #343a40;
+		border: none;
 	}
 }

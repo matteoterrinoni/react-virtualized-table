@@ -19,7 +19,8 @@ export type Props = {
 	height?:number
 	withOffsetTop?:boolean
 	children?
-	amount?:number
+	amount?:number,
+	selectable?
 }
 
 export type State = {
@@ -66,7 +67,7 @@ class MainTable extends React.Component<Props, State>{
 					stickyFilter={p.stickyFilter}
 					scrollElement={p.scrollElement}
 					height={p.height}
-					selectable={true}
+					selectable={p.selectable!==undefined? p.selectable : true}
 					items={s.fakeItems}
 					columns={columns}
 					defaultSorting={{email:'asc'}}

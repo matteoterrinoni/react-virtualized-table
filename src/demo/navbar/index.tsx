@@ -16,7 +16,7 @@ const Navbar = (p:Props) => (
 		<div className="container">
 			<a onClick={p.onOpenSidebar}
 				className="navbar-brand"
-				href="#">Sidebar</a>
+				href="#"><Icon name='menu'/></a>
 		</div>
 		
 		<div

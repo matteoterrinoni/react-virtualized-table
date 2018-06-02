@@ -1,0 +1,23 @@
+.small-table{
+	margin-bottom: 80px;
+
+	h4{
+		text-transform: uppercase;
+		font-weight: normal;
+		font-size: 10pt;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	.wrapper{
+		margin-bottom: 80px;
+		margin: 15px;
+		border: 1px solid #eaeaea;
+		border-radius: 4px;
+		padding-top: 15px;
+	}
+
+	.filtered-head{
+		padding: 15px;
+	}
+}

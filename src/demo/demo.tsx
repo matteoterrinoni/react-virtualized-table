@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import * as V from '../react-virtualized-table';
+import * as V from 'src/react-virtualized-table';
 
 import {
 	FakeItem,
@@ -21,6 +21,8 @@ import Jumbotron from './jumbotron'
 import Sidebar from './sidebar'
 
 import Navbar from './navbar'
+
+import SmallerTables from './smallerTables'
 
 export type Props = {
 
@@ -67,46 +69,7 @@ class Demo extends React.Component<Props, State> {
 
 				{
 					true &&
-					<div className="container">
-						<div className="row">
-							<div className="col-md">
-								stickyHead and stickyFilter
-								<Table
-								withOffsetTop={withOffsetTop}
-								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
-								height={300}
-								stickyHead={true}
-								stickyFilter={true}/>
-							</div>
-							<div className="col-md">
-								stickyHead
-								<Table
-								withOffsetTop={withOffsetTop}
-								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
-								height={300}
-								stickyHead={true}
-								stickyFilter={false}/>
-							</div>
-							<div className="col-md">
-								stickyFilter
-								<Table
-								withOffsetTop={withOffsetTop}
-								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
-								height={300}
-								stickyHead={false}
-								stickyFilter={true}/>
-							</div>
-							<div className="col-md">
-								no sticky
-								<Table
-								withOffsetTop={withOffsetTop}
-								columns={V.GivenVTable.columns().addColumnFor('name', true).result}
-								height={300}
-								stickyHead={false}
-								stickyFilter={false}/>
-							</div>
-						</div>
-					</div>
+					<SmallerTables withOffsetTop={withOffsetTop} />
 				}
 
 				{
