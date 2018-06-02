@@ -1,7 +1,5 @@
 import { merge, deepCopy, orderBy, textComparison } from './helpers'
 
-import { VTable } from 'src'
-
 import SF from 'src/searchfield/model'
 
 import I from 'src/icon/model'
@@ -10,7 +8,7 @@ import C from 'src/checkbox/model'
 
 import F from 'src/filtered/model'
 
-import { Props as VProps, State as VState } from 'src'
+import { VTable, Props as VProps, State as VState } from 'src'
 
 const listRowHeight = 50
 const codepickerHeight = 250
