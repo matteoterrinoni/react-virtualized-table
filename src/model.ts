@@ -156,6 +156,7 @@ export const givenColumns = <T>(_columns?: Column<T>[]) => {
   return {
     add: (cols: Column<T>[]) => givenColumns(columns.concat(cols)),
     addColumnFor: (key, sortable?) => givenColumns(columns).add([buildColumn(key, sortable)]),
+    addSortableColumnFor: key => givenColumns(columns).addColumnFor(key, true),
     getDefaultSorting: () => getDefaultSorting(columns),
     sortables: (sorting?: Sort) => columns.filter(c => isSortable(c, sorting)),
     result: columns
