@@ -22,14 +22,30 @@ import {
 	GivenVTable
 } from 'react-virtualized-table'
 
+import * as faker from 'faker'
+
+export const initFakeItems = (n = 1000) => {
+  let list = []
+  for (let i = 0; i < n; i++) {
+    list.push({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      age: faker.random.number()
+    })
+  }
+  return list
+}
+
 const columns = GivenVTable.columns()
-.addColumnFor('name', true)
+.addSortableColumnFor('name')
 .addColumnFor('age')
-.addColumnFor('email', true)
+.addSortableColumnFor('email')
 .result
 
-<V.FilteredVTable
-items={[...arrayOfItems]}
+<FilteredVTable
+items={initFakeItems()}
 columns={columns}/>
 
 ```
+
+
