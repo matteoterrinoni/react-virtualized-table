@@ -6,7 +6,6 @@ import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 import postcss from 'rollup-plugin-postcss'
 import alias from 'rollup-plugin-alias';
-
 const pkg = require('./package.json')
 
 const libraryName = 'react-virtualized-table'
