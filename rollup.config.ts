@@ -34,9 +34,9 @@ export default {
   plugins: [
 
     postcss({
-        extract: true,
         minimize: true,
-        sourceMap: true
+        sourceMap: true,
+        extract: 'dist/style.css',
       }
     ),
 
