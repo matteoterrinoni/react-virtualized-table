@@ -1,6 +1,8 @@
 # React Virtualized Table
 [Demo here!](http://matteoterrinoni.it/react-virtualized-table-demo/ "Demo here!")
 ---
+[Stackblitz example here](https://stackblitz.com/edit/react-virtualized-table "Stackblitz example here")
+---
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matteoterrinoni/react-virtualized-table.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/matteoterrinoni/react-virtualized-table.svg?branch=master)](https://travis-ci.org/matteoterrinoni/react-virtualized-table)
