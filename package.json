@@ -22,7 +22,7 @@
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
     "build:demo": "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.demo.js -p --bail",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
     "start": "rollup -c rollup.config.ts -w",
     "start:demo": "webpack-dev-server --development src/demo --config webpack.config.demo.js",
     "test": "jest",

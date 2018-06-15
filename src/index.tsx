@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'React'
 
 import {
 	merge, deepCopy
@@ -20,36 +20,36 @@ import CP, {
 	sortTypes
 } from './model';
 
+export type VTableProps<T> = {
+  items:Item<T>[]
+  rowRenderer?
+  height?:number
+  rowHeight?:number,
+  columns:Column<T>[],
+  noHead?:boolean,
+  defaultSorting?: Sort,
+  scrollElement?
+  stickyHead?
+  stickyOffset?
+}
+
+export type VTableState<T> = {
+  loading:boolean,
+  sortedItems:Item<T>[]
+  sorting: Sort,
+  container
+}
+
 import RowElement from 'src/row'
 
 import Head from 'src/head'
 
 import './style.scss'
 
-export type Props<T> = {
-	items:Item<T>[]
-	rowRenderer?
-	height?:number
-	rowHeight?:number,
-	columns:Column<T>[],
-	noHead?:boolean,
-	defaultSorting?: Sort,
-	scrollElement?
-	stickyHead?
-	stickyOffset?
-}
-
-export type State<T> = {
-	loading:boolean,
-	sortedItems:Item<T>[]
-	sorting: Sort,
-	container
-}
-
-export class VTable<T> extends React.Component<Props<T>, State<T>>{
+export class VTable<T> extends React.Component<VTableProps<T>, VTableState<T>>{
 	
 	wrapper
-	constructor(p:Props<T>){
+	constructor(p:VTableProps<T>){
 		super(p)
 
 		let sorting = table(this).getDefaultSorting()
@@ -66,11 +66,11 @@ export class VTable<T> extends React.Component<Props<T>, State<T>>{
 		this.wrapper = React.createRef();
 	}
 
-	componentWillReceiveProps(n:Props<T>){
+	componentWillReceiveProps(n:VTableProps<T>){
 		this.load(n)
 	}
 
-	load(p:Props<T>, _sorting?){
+	load(p:VTableProps<T>, _sorting?){
 		let sorting = _sorting || table(this).getDefaultSorting();
 		this.setState(merge(this.state, {
 			sortedItems:Given.items(p.items).sort(sorting, p.columns).result,
@@ -205,10 +205,6 @@ export {
 	Given as GivenVTable,
 	Column as VTableColumn,
 } from 'src/model'
-
-export { 
-	default as FilteredVTable
-} from 'src/filtered/index'
 
 export {
 	RenderItemProps as VTableRenderItemProps

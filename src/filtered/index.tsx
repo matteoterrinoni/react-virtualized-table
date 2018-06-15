@@ -1,11 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 
 import * as Helpers from '../helpers'
 const {merge, deepCopy} = Helpers
 
-import VTable, {
-	Props as VProps
-} from "../index"
+import {
+	VTable,
+	VTableProps
+} from "src"
 
 import {
 	Column
@@ -30,7 +31,7 @@ import CP, {
 	Counter
 } from 'src/model';
 
-export type Props<T> = VProps<T> & {
+export type Props<T> = VTableProps<T> & {
 	matcher?:Function,
 	children?:any,
 	filter?:string

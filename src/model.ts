@@ -6,9 +6,7 @@ import I from 'src/icon/model'
 
 import C from 'src/checkbox/model'
 
-import F from 'src/filtered/model'
-
-import { VTable, Props as VProps, State as VState } from 'src'
+import { VTable } from 'src'
 
 const listRowHeight = 50
 const codepickerHeight = 250

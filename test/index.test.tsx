@@ -9,24 +9,24 @@ import CP, { initCounter, Item, Given, Sort, sortTypes, Column } from '../src/mo
 import { FakeItem, initFakeItems, fakeItem, fakeItemColumns } from './utils'
 
 import VTable, {
-  Props
+  VTableProps
 } from '../src/index'
 
 const setup = () => {
 
   let items = initFakeItems(10) as Item<FakeItem>[]
 
-  const props:Props<FakeItem> = {
+  const props:VTableProps<FakeItem> = {
     items,
     columns: fakeItemColumns
   }
 
-  const propsNoHead:Props<FakeItem> = {
+  const propsNoHead:VTableProps<FakeItem> = {
     ...props,
     noHead: true
   }
 
-  const propsFixed:Props<FakeItem> = {
+  const propsFixed:VTableProps<FakeItem> = {
     ...props,
     height: 111
   }
