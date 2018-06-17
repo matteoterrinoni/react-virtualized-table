@@ -1,8 +1,9 @@
+
 .side-container{
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 50%;
+	width: 100%;
 	z-index: 2000;
 	background: white;
 	box-shadow: 0 0 30px;
@@ -11,6 +12,10 @@
 	overflow: auto;
 	transition: transform ease-in-out .2s;
 	padding-top: 0;
+
+	@media screen and (min-width: 800px) {
+		width: 50%;
+	}
 
 	&.closed{
 		transform: translateX(calc(-100% - 50px))

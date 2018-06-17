@@ -123,6 +123,7 @@ switch (process.env.NODE_ENV) {
 				title: 'React Virtualized Tabl Demo',
 				appMountId: 'app',
 				inject: false,
+				mobile: true,
 				minify: {
 					removeComments: true,
 					collapseWhitespace: true,
@@ -173,7 +174,8 @@ switch (process.env.NODE_ENV) {
 				template: 'node_modules/html-webpack-template/index.ejs',
 				title: 'React Virtualized Table Demo',
 				appMountId: 'app',
-				inject: false
+				inject: false,
+				mobile: true
 			})
 		]
 
