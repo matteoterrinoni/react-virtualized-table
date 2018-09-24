@@ -1,3 +1,3 @@
-export { default as FilteredVTable } from 'src/filtered/index'
+export { default as FilteredVTable } from './filtered/index'
 
-export { VTable, VTableItem, VTableRenderItemProps, GivenVTable, VTableColumn } from 'src/index'
+export { VTable, VTableItem, VTableRenderItemProps, GivenVTable, VTableColumn } from './index'

@@ -1,10 +1,10 @@
 import { merge, deepCopy, orderBy, textComparison } from './helpers'
 
-import SF from 'src/searchfield/model'
+import SF from './searchfield/model'
 
-import I from 'src/icon/model'
+import I from './icon/model'
 
-import C from 'src/checkbox/model'
+import C from './checkbox/model'
 
 import { VTable } from 'src'
 

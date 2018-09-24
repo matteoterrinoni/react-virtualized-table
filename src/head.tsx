@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Sticky from 'src/stickyWrapper'
+import Sticky from './stickyWrapper'
 
 import CP, {
 	Item,

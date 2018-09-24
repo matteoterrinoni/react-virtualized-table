@@ -11,7 +11,7 @@ export {
 	Props
 } from './model'
 
-import Icon from 'src/icon'
+import Icon from '../icon'
 
 export default (p:Props) => {
 

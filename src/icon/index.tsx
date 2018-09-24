@@ -5,7 +5,7 @@ export type Props = {
 	name:string
 }
 
-import CP from 'src/model'
+import CP from './model'
 
 const Icon = (p:Props) => {
 	return <i className={`${CP.classNames.icon} ${p.type || ''}`}>{p.name}</i>

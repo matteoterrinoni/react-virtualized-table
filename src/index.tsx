@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
 	merge, deepCopy
-} from 'src/helpers'
+} from './helpers'
 
 import {
 	ReactVirtualized,
@@ -40,9 +40,9 @@ export type VTableState<T> = {
   container
 }
 
-import RowElement from 'src/row'
+import RowElement from './row'
 
-import Head from 'src/head'
+import Head from './head'
 
 import './style.scss'
 
@@ -204,8 +204,8 @@ export {
 	Item as VTableItem,
 	Given as GivenVTable,
 	Column as VTableColumn,
-} from 'src/model'
+} from './model'
 
 export {
 	RenderItemProps as VTableRenderItemProps
-} from 'src/row'
+} from './row'

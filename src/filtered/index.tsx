@@ -10,11 +10,11 @@ import {
 
 import {
 	Column
-} from 'src/model'
+} from '../model'
 
-import SearchField from 'src/searchfield'
+import SearchField from '../searchfield'
 
-import Checkbox from 'src/checkbox'
+import Checkbox from '../checkbox'
 
 import Head from './head'
 
@@ -29,7 +29,7 @@ import CP, {
 	Given,
 	initCounter,
 	Counter
-} from 'src/model';
+} from '../model';
 
 export type Props<T> = VTableProps<T> & {
 	matcher?:Function,

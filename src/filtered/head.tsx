@@ -2,13 +2,13 @@ import React from 'react'
 
 import M from './model'
 
-import SearchField from 'src/searchfield'
+import SearchField from '../searchfield'
 
-import Sticky from 'src/stickyWrapper'
+import Sticky from '../stickyWrapper'
 
 import {
 	Counter
-} from 'src/model'
+} from '../model'
 
 export type Props = {
 	counter:Counter

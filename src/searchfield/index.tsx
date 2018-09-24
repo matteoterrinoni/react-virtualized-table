@@ -5,9 +5,9 @@ export type Props = {
 	value
 }
 
-import Icon from 'src/icon'
+import Icon from '../icon'
 
-import CP from 'src/model'
+import CP from './model'
 
 export default (p:Props) => {
 	const {
