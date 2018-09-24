@@ -1,6 +1,6 @@
 import FVTable, { Props, State } from './index'
 
-import M from './model'
+import M from '../model'
 
 const F = {
   classNames: {
