@@ -1,8 +1,8 @@
 import React from 'react'
 
-import * as V from './react-virtualized-table';
+import * as V from 'src/react-virtualized-table';
 
-import Table from './demo/mainTable'
+import Table from 'src/demo/mainTable'
 
 import './style.scss'
 
