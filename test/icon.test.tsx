@@ -48,4 +48,10 @@ describe('Icon', () => {
     expect(Icon.html().indexOf(type)>-1).toEqual(true)
   })
 
+  it('should render the right name', () => {
+    const name = 'test'
+  	const Comp = mount(<_Icon name={name}/>)
+    expect(Comp.html().indexOf(name)>-1).toEqual(true)
+  })
+
 })
