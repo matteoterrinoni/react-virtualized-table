@@ -6,7 +6,7 @@ import I from './icon/model'
 
 import C from './checkbox/model'
 
-import { VTable } from 'src'
+import { VTable } from './index'
 
 const listRowHeight = 50
 const codepickerHeight = 250

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import * as Helpers from '../helpers'
 const {merge, deepCopy} = Helpers
@@ -6,13 +6,11 @@ const {merge, deepCopy} = Helpers
 import {
 	VTable,
 	VTableProps
-} from "src"
+} from "../index"
 
 import {
 	Column
 } from '../model'
-
-import SearchField from '../searchfield'
 
 import Checkbox from '../checkbox'
 
@@ -24,7 +22,7 @@ import M, {
 	filtered
 } from './model'
 
-import CP, {
+import {
 	Item,
 	Given,
 	initCounter,
