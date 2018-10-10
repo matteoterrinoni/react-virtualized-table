@@ -122,7 +122,7 @@
     "rimraf": "^2.6.1",
     "rollup": "^0.59.0",
     "rollup-plugin-alias": "^1.4.0",
-    "rollup-plugin-commonjs": "^9.0.0",
+    "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-postcss": "^1.6.1",
