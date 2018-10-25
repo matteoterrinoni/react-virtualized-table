@@ -1,43 +1,44 @@
 
 import * as React from 'react'
 import Enzyme from 'enzyme'
-import { mount,  } from 'enzyme'
+import { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
+Enzyme.configure({ adapter: new Adapter() })
 
 import CP from '../src/model'
 
-import _SearchField, {
+import SearchField, {
   	Props
 } from '../src/searchfield'
 
-const setup = (value?, onChange?) => {
-
-  const props:Props = {
-    value: value || 'defaultValue',
-    onChange: onChange ? onChange : (e)=>e,
-  }
+describe('Searchfield', () => {
   
-  Enzyme.configure({ adapter: new Adapter() })
-  
-  const SearchField = mount(<_SearchField {...props} />)
+  let props:Props
+  let onChange = jest.fn()
 
-  return {
-    props,
-    SearchField
-  }
-}
-
-describe('Icon', () => {
-
-  const defaultValue = 'defaultValue'
-  const { SearchField } = setup(defaultValue)
+  beforeEach(() => {
+    props = {
+      value: 'defaultValue',
+      onChange,
+    };
+  });
 
   it('should render self', () => {
-    expect(SearchField.html().indexOf(CP.classNames.searchField)>-1).toEqual(true)
+    const Comp = mount(<SearchField {...props} />)
+    expect(Comp.html().indexOf(CP.classNames.searchField)>-1).toEqual(true)
   })
 
   it('should render the right value', () => {
-    expect(SearchField.html().indexOf(defaultValue)>-1).toEqual(true)
+    const Comp = mount(<SearchField {...props} />)
+    expect(Comp.html().indexOf('defaultValue')>-1).toEqual(true)
+  })
+
+  it('should call onChange one time after typing', () => {
+    const text = 'a'
+    const Comp = mount(<SearchField {...props} />)
+    Comp.find('input').simulate('change', { target: { value: text } });
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(text);
   })
 
 })
