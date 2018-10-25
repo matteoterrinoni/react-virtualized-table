@@ -23,10 +23,12 @@ export const filtered = <T>(t: FVTable<T>) => {
   return {
     getElemWidth: elem => elem.offsetWidth,
     getElemHeight: elem => elem.offsetHeight,
+    getStickyOffset: () => p.stickyOffset || 0,
     getChildTableOffsetTop: () => {
       return p.hideFilter || !p.stickyFilter
-        ? p.stickyOffset || 0
-        : t.state.headRef && (p.stickyOffset || 0) + filtered(t).getElemHeight(t.state.headRef)
+        ? filtered(t).getStickyOffset()
+        : t.state.headRef &&
+            filtered(t).getStickyOffset() + filtered(t).getElemHeight(t.state.headRef)
     },
     setHeadRef: e => !t.state.headRef && t.setState({ headRef: e }),
     showTable: () => p.hideFilter || t.state.headRef
