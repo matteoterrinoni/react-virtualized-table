@@ -46,7 +46,7 @@ import Head from './head'
 
 import './style.scss'
 
-export class VTable<T> extends React.Component<VTableProps<T>, VTableState<T>>{
+export class VTable<T> extends React.PureComponent<VTableProps<T>, VTableState<T>>{
 	
 	wrapper
 	constructor(p:VTableProps<T>){
