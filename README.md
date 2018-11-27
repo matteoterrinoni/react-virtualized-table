@@ -1,5 +1,5 @@
 # React Virtualized Table
-[Demo here!](http://matteoterrinoni.it/react-virtualized-table-demo/ "Demo here!")
+[Demo here!](http://react-virtualized-table.matteoterrinoni.it/ "Demo here!")
 ---
 [Stackblitz example here](https://stackblitz.com/edit/react-virtualized-table "Stackblitz example here")
 ---
