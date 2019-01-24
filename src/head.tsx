@@ -7,9 +7,11 @@ import CP, {
 	Column,
 	Given,
 	Sort,
-	sortTypes
+	sortTypes,
+	CustomComponents
 } from './model'
 import Icon from './icon';
+import { CustomComponentsContext } from './';
 
 export type Props<T> = {
 	height?,
@@ -20,6 +22,7 @@ export type Props<T> = {
 	stickyHeadOffset?
 	scrollElement?
 	bottomContainer?
+	ref?
 }
 
 export type RenderItemProps<T> = {
@@ -31,6 +34,19 @@ const Head: <T>(N:Props<T>)=>any = (p) => {
 
 	const renderObj = {
 		columns:p.columns
+	}
+
+	const getSortIcon = (sort, cc:CustomComponents) => {
+		if(sort == sortTypes.asc.key && cc.IconSortAsc){
+			return (cc.IconSortAsc as any)()
+		}
+		
+		if(sort == sortTypes.desc.key && cc.IconSortDesc){
+			return (cc.IconSortDesc as any)()
+		}
+
+		return <Icon name={sortTypes[sort].icon}/>
+
 	}
 
 	return (
@@ -56,8 +72,12 @@ const Head: <T>(N:Props<T>)=>any = (p) => {
 							className={`${CP.classNames.headColumn} ${CP.classNames.sortable(Gc.isSortable())} ${CP.classNames.isActionCol(c.isActionsCol)} ${c.className?c.className:''}`}>
 							{c.title || c.name} 
 							{
-								sort &&
-								<Icon name={sortTypes[sort].icon}/>
+								sort && 					
+								<CustomComponentsContext.Consumer>
+								{
+									(cc:CustomComponents)=>getSortIcon(sort, cc)
+								}
+								</CustomComponentsContext.Consumer>
 							}
 						</div>
 					)

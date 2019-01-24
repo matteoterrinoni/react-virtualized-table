@@ -11,6 +11,7 @@ import { FakeItem, initFakeItems, fakeItem, fakeItemColumns, sortableFakeItemCol
 import VHead, {
   Props
 } from '../src/head'
+import { CustomComponentsContext } from '../src';
 
 const setup = (columns?, sorting?) => {
 
@@ -22,26 +23,28 @@ const setup = (columns?, sorting?) => {
   
   Enzyme.configure({ adapter: new Adapter() })
   
-  let headRef
-  const Head = mount(<VHead ref={r=>headRef = r} {...props} />)
+  const Head = mount(
+    <CustomComponentsContext.Provider value={{}}>
+      <VHead {...props} />
+    </CustomComponentsContext.Provider>
+  )
 
   return {
     props,
-    headRef,
     Head
   }
 }
 
 describe('Head', () => {
   it('should render self', () => {
-    const { Head, headRef } = setup()
+    const { Head } = setup()
     
     expect(Head.html().indexOf(CP.classNames.head)>-1).toEqual(true)
 
   })
 
   it('should render the right amount of columns', () => {
-    const { Head, headRef } = setup()
+    const { Head } = setup()
 
     expect(Head.find('.'+CP.classNames.headColumn).length).toEqual(fakeItemColumns.length)
   })

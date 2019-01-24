@@ -9,6 +9,9 @@ import Icon from '../icon'
 
 import CP from './model'
 
+
+export type SearchFieldComp = ({onChange, value})=>JSX.Element
+
 export default (p:Props) => {
 	const {
 		onChange,

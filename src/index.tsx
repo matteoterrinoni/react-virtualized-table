@@ -17,7 +17,7 @@ import CP, {
 	table,
 	Column,
 	Sort,
-	sortTypes
+	CustomComponents
 } from './model';
 
 export type VTableProps<T> = {
@@ -31,6 +31,7 @@ export type VTableProps<T> = {
   scrollElement?
   stickyHead?
   stickyOffset?
+  customComponents?: CustomComponents
 }
 
 export type VTableState<T> = {
@@ -45,6 +46,8 @@ import RowElement from './row'
 import Head from './head'
 
 import './style.scss'
+
+export const CustomComponentsContext = React.createContext({} as CustomComponents )
 
 export class VTable<T> extends React.PureComponent<VTableProps<T>, VTableState<T>>{
 	
@@ -146,55 +149,61 @@ export class VTable<T> extends React.PureComponent<VTableProps<T>, VTableState<T
 		const scrollElement = table(this).getScrollElement()
 		const height = table(this).getHeight()
 
-		return loading ? <span>loading...</span> :
-		(
-			<div ref={this.wrapper}>
-				{
-					table(this).shouldRenderHeadOutiseOfContainer() &&
-					this.head(this)
-				}
-				<div
-					style={CP.defaultContainerStyle(height)}
-					className={CP.classNames.container}
-					ref={(e)=>table(this).setContainer(e)}>
+		return (
+			<CustomComponentsContext.Provider value={p.customComponents || {}}>
+			{
+				loading ? <span>loading...</span> :
+				(
+					<div ref={this.wrapper}>
+						{
+							table(this).shouldRenderHeadOutiseOfContainer() &&
+							this.head(this)
+						}
+						<div
+							style={CP.defaultContainerStyle(height)}
+							className={CP.classNames.container}
+							ref={(e)=>table(this).setContainer(e)}>
 
-					{
-						table(this).shouldRenderHeadInsideOfContainer() &&
-						this.head(this)
-					}
+							{
+								table(this).shouldRenderHeadInsideOfContainer() &&
+								this.head(this)
+							}
 
-					{
-						s.container &&
-						<WindowScroller
-						ref={this._setRef}
-						scrollElement={scrollElement}>
-						{({height, isScrolling, registerChild, onChildScroll, scrollTop}) => (
-							<div className={CP.classNames.wrapper}>
-							<div className={CP.classNames.main}>
-							<List
-							autoHeight
-							isScrolling={isScrolling}
-							onScroll={onChildScroll}
-							scrollTop={scrollTop}
-							ref={this._setListRef}
-							recomputeRowHeights={false}
-							forceUpdate={false}
-							height={height}
-							overscanRowCount={20}
-							rowHeight={rowHeight}
-							rowRenderer={a=>this.rowRenderer(a, visibles)}
-							rowCount={this.length(visibles)}
-							width={CP.list.width}
-							/>
-							</div>
-							</div>
-							)}
-						</WindowScroller>
-					}
-					
-	        	</div>
-        	</div>
-        )
+							{
+								s.container &&
+								<WindowScroller
+								ref={this._setRef}
+								scrollElement={scrollElement}>
+								{({height, isScrolling, registerChild, onChildScroll, scrollTop}) => (
+									<div className={CP.classNames.wrapper}>
+									<div className={CP.classNames.main}>
+									<List
+									autoHeight
+									isScrolling={isScrolling}
+									onScroll={onChildScroll}
+									scrollTop={scrollTop}
+									ref={this._setListRef}
+									recomputeRowHeights={false}
+									forceUpdate={false}
+									height={height}
+									overscanRowCount={20}
+									rowHeight={rowHeight}
+									rowRenderer={a=>this.rowRenderer(a, visibles)}
+									rowCount={this.length(visibles)}
+									width={CP.list.width}
+									/>
+									</div>
+									</div>
+									)}
+								</WindowScroller>
+							}
+							
+						</div>
+					</div>
+				)
+			}
+			</CustomComponentsContext.Provider>
+		)
 	}
 }
 

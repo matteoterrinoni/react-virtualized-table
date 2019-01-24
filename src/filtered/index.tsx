@@ -5,11 +5,12 @@ const {merge, deepCopy} = Helpers
 
 import {
 	VTable,
-	VTableProps
+	VTableProps,
+	CustomComponentsContext
 } from "../index"
 
 import {
-	Column
+	Column, CustomComponents
 } from '../model'
 
 import Checkbox from '../checkbox'
@@ -186,11 +187,13 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 		const filter = this.props.filter || this.state.filter
 
 		return (
+			
 			<div
 			ref={this.container}
 			className={`${M.classNames.filtered} ${M.classNames.windowScroll(vTableProps.height)}`}>
 				{
 					!p.hideFilter &&
+					<CustomComponentsContext.Provider value={vTableProps.customComponents || {}}>
 					<div ref={filtered(this).setHeadRef}>
 						<Head
 						stickyFilter={stickyFilter}
@@ -202,6 +205,7 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 						scrollElement={vTableProps.scrollElement}
 						bottomContainer={this.container.current}/>
 					</div>
+					</CustomComponentsContext.Provider>
 				}
 				{
 					filtered(this).showTable() &&
@@ -212,6 +216,7 @@ export default class FilteredVirtualizedTable<T> extends React.Component<Props<T
 					items={filteredList} />
 				}
 			</div>
+			
 		)
 	}
 }

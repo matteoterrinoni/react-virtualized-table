@@ -7,6 +7,8 @@ import I from './icon/model'
 import C from './checkbox/model'
 
 import { VTable } from './index'
+import { SearchFieldComp } from './searchfield'
+import { CountComp } from './count'
 
 const listRowHeight = 50
 const codepickerHeight = 250
@@ -14,6 +16,13 @@ const codepickerWidth = 250
 const paddingLeft = 15
 
 const BASE_NAME = 'virtualized-table'
+
+export type CustomComponents = {
+  IconSortAsc?: JSX.Element
+  IconSortDesc?: JSX.Element
+  SearchField?: SearchFieldComp
+  Counter?: CountComp
+}
 
 export type Item<T> = T & {
   visible?: boolean

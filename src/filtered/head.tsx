@@ -7,8 +7,10 @@ import SearchField from '../searchfield'
 import Sticky from '../stickyWrapper'
 
 import {
-	Counter
+	Counter, CustomComponents
 } from '../model'
+import Count from 'src/count';
+import { CustomComponentsContext } from '../';
 
 export type Props = {
 	counter:Counter
@@ -47,16 +49,32 @@ class Head extends React.Component<Props, State>{
 				
 				<div className={M.classNames.filteredHead}>
 
-					<div className={M.classNames.filterBox}>
-						<SearchField
-						value={p.filter}
-						onChange={p.onChangeFilter}/>
+					<CustomComponentsContext.Consumer>{
+						(cc:CustomComponents)=>
+						<div className={M.classNames.filterBox}>
+							
+							{
+								cc.SearchField ?
+								<cc.SearchField
+								value={p.filter}
+								onChange={p.onChangeFilter}/>
+								:
+								<SearchField
+								value={p.filter}
+								onChange={p.onChangeFilter}/>
+							}
+							
+							{
+								cc.Counter ?
+								<cc.Counter count={p.counter.visible}/>
+								:
+								<Count count={p.counter.visible}/>
+							}
+							
 						
-						{
-							<span className="badge badge-secondary counter">{p.counter.visible}</span>
-						}
-
-					</div>
+						</div>
+					}
+					</CustomComponentsContext.Consumer>
 
 					{
 						p.children &&

@@ -61,6 +61,9 @@ class MainTable extends React.Component<Props, State>{
 
 			<div className="demo">
 				<V.FilteredVTable
+					customComponents={{
+						Counter: ({count})=><strong>{count}</strong>
+					}}
 					hideFilter={p.hideFilter}
 					stickyOffset={p.withOffsetTop?56:null}
 					stickyHead={p.stickyHead}
