@@ -9,6 +9,7 @@ import CP, {
 	Sort,
 	sortTypes
 } from './model'
+import Icon from './icon';
 
 export type Props<T> = {
 	height?,
@@ -56,7 +57,7 @@ const Head: <T>(N:Props<T>)=>any = (p) => {
 							{c.title || c.name} 
 							{
 								sort &&
-								<i className="material-icons">{sortTypes[sort].icon}</i>
+								<Icon name={sortTypes[sort].icon}/>
 							}
 						</div>
 					)

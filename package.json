@@ -40,7 +40,7 @@
     "commitmsg": "validate-commit-msg"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": [
+    "{src,test}/**/*.{ts, tsx}": [
       "prettier --write --no-semi --single-quote",
       "git add"
     ]
