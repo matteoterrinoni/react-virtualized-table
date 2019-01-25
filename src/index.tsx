@@ -49,7 +49,7 @@ import './style.scss'
 
 export const CustomComponentsContext = React.createContext({} as CustomComponents )
 
-export class VTable<T> extends React.PureComponent<VTableProps<T>, VTableState<T>>{
+export class VTable<T> extends React.Component<VTableProps<T>, VTableState<T>>{
 	
 	wrapper
 	constructor(p:VTableProps<T>){
@@ -75,10 +75,11 @@ export class VTable<T> extends React.PureComponent<VTableProps<T>, VTableState<T
 
 	load(p:VTableProps<T>, _sorting?){
 		let sorting = _sorting || table(this).getDefaultSorting();
-		this.setState(merge(this.state, {
-			sortedItems:Given.items(p.items).sort(sorting, p.columns).result,
+		const sortedItems = Given.items(p.items).sort(sorting, p.columns).result
+		this.setState({
+			sortedItems,
 			sorting
-		}), ()=>this.updateList())
+		}, ()=>this.updateList())
 	}
 
 	updateList(){
