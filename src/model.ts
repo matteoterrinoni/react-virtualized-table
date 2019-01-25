@@ -18,8 +18,8 @@ const paddingLeft = 15
 const BASE_NAME = 'virtualized-table'
 
 export type CustomComponents = {
-  IconSortAsc?: JSX.Element
-  IconSortDesc?: JSX.Element
+  IconSortAsc?: () => JSX.Element
+  IconSortDesc?: () => JSX.Element
   SearchField?: SearchFieldComp
   Counter?: CountComp
 }
