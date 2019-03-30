@@ -134,7 +134,7 @@
     "semantic-release": "^15.9.16",
     "style-loader": "^0.21.0",
     "travis-deploy-once": "^5.0.8",
-    "ts-jest": "^22.4.6",
+    "ts-jest": "^24.0.1",
     "ts-loader": "^4.3.0",
     "ts-node": "^6.0.3",
     "tslint": "^5.10.0",
