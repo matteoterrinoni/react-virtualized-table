@@ -150,6 +150,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
-    "react-virtualized": "^9.18.5"
+    "react-virtualized": "^9.21.1"
   }
 }
