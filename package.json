@@ -125,7 +125,7 @@
     "rollup-plugin-alias": "^1.4.0",
     "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-json": "^3.0.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-node-resolve": "^5.0.4",
     "rollup-plugin-postcss": "^1.6.1",
     "rollup-plugin-scss": "^0.4.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
