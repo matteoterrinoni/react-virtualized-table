@@ -109,7 +109,7 @@
     "html-webpack-template": "^6.2.0",
     "husky": "^0.14.0",
     "jest": "^22.4.3",
-    "lint-staged": "^7.1.0",
+    "lint-staged": "^9.2.3",
     "lodash.camelcase": "^4.3.0",
     "material-design-icons": "^3.0.1",
     "node-sass": "^4.9.0",
