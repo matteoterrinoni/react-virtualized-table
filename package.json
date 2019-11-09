@@ -114,7 +114,7 @@
     "material-design-icons": "^3.0.1",
     "node-sass": "^4.9.0",
     "postcss-scss": "^1.0.5",
-    "prettier": "^1.12.1",
+    "prettier": "^1.19.1",
     "prompt": "^1.0.0",
     "react": "^16.2.0",
     "react-codemirror": "^1.0.0",
