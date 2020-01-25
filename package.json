@@ -97,7 +97,7 @@
     "colors": "^1.2.5",
     "commitizen": "^2.9.6",
     "coveralls": "^3.0.1",
-    "cross-env": "^5.1.5",
+    "cross-env": "^7.0.0",
     "css-loader": "^0.28.11",
     "cz-conventional-changelog": "^2.1.0",
     "enzyme": "^3.3.0",
