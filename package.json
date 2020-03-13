@@ -121,7 +121,7 @@
     "react-dom": "^16.3.2",
     "replace-in-file": "^3.4.0",
     "rimraf": "^2.6.1",
-    "rollup": "^0.59.0",
+    "rollup": "^2.0.6",
     "rollup-plugin-alias": "^1.4.0",
     "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-json": "^3.0.0",
