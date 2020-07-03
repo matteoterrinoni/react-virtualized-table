@@ -10,7 +10,7 @@
 [![Dev Dependencies](https://david-dm.org/matteoterrinoni/react-virtualized-table/dev-status.svg)](https://david-dm.org/alexjoverm/typescript-library-starter?type=dev)
 [![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/matteoterrinoni)
 
-A simple fully working table using **[react-virtualized](https://github.com/bvaughn/react-virtualized)**.
+A simple table using **[react-virtualized](https://github.com/bvaughn/react-virtualized)**.
 
 ### Usage
 
